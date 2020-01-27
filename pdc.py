@@ -9,8 +9,13 @@ class Postcode:
         self.longtitude = None
         self.latlong()
 
-    def hello(self):
-        pass
+    def writeToFile(self, outFileName):
+        with open(outFileName, mode="a") as outcodes:
+            outcode_writer = csv.writer(outcodes, delimiter=",", quotechar='"')
+
+            outcode_writer.writerow(
+                [self.code, self.latitude, self.longtitude]
+            )
 
     def latlong(self):
         with open("all-uk-postcodes.csv") as csvfile:
@@ -21,22 +26,39 @@ class Postcode:
                     self.longtitude = row[3]
 
 
-#    def postcodeInput(self):
-#        self.code = input("Enter first part of the first postcode: ".upper()
+def postcodelookup(inFileName, outFileName):
+    with open(inFileName) as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=",")
+        for row in readCSV:
+            postcode = row[0].split()
+            code = Postcode(postcode[0])
+            code.writeToFile(outFileName)
 
 
-postcode1 = Postcode("CV8")
-postcode2 = Postcode("B3")
+def postcodenearest(inCode, inFileName):
+    code = Postcode(inCode)
+    distances = []
+    with open(inFileName) as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=",")
+        for row in readCSV:
+            distances.append(
+                (
+                    geopy.distance.vincenty(
+                        (row[1], row[2]), (code.latitude, code.longtitude),
+                    ),
+                    row[0],
+                )
+            )
+    distances.sort()
+    print(f"These are the nearest addresses to {code.code}: ")
+    for i in range(5):
+        print(distances[i])
 
-print(postcode1.latitude)
-print(postcode1.longtitude)
-print(postcode2.latitude)
-print(postcode2.longtitude)
 
-print(
-    geopy.distance.vincenty(
-        (postcode1.latitude, postcode1.longtitude),
-        (postcode2.latitude, postcode2.longtitude),
-    )
-)
-# Distance calculator
+def main():
+    postcodelookup("random-postcodes.csv", "out-random-postcodes.csv")
+    postcodenearest("CV3", "out-random-postcodes.csv")
+
+
+if __name__ == "__main__":
+    main()
