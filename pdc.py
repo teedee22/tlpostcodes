@@ -18,7 +18,7 @@ class Postcode:
             )
 
     def latlong(self):
-        with open("all-uk-postcodes.csv") as csvfile:
+        with open("postcodedata/all-uk-postcodes.csv") as csvfile:
             readCSV = csv.reader(csvfile, delimiter=",")
             for row in readCSV:
                 if row[1] == self.code:
@@ -50,14 +50,14 @@ def postcodenearest(inCode, inFileName):
                 )
             )
     distances.sort()
-    print(f"These are the nearest addresses to {code.code}: ")
+    print(f"These are the nearest 5 addresses to {code.code}: ")
     for i in range(5):
-        print(distances[i])
+        print(f"{distances[i][1]} : {distances[i][0]}")
 
 
 def main():
     postcodelookup("random-postcodes.csv", "out-random-postcodes.csv")
-    postcodenearest("CV3", "out-random-postcodes.csv")
+    postcodenearest("SW17", "out-random-postcodes.csv")
 
 
 if __name__ == "__main__":
