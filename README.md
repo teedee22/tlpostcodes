@@ -1,11 +1,9 @@
-## Postcode Finder
+# Postcode Finder
 
-This was developed to:
-- lookup postcodes in a csv file,
-- find their latitude and longdtitude and write to a new csv file.
-- Given a new postcode, find which postcodes in the new csv file are closest.
 
-postcodeslookup.py
+## postcodeslookup.py
+find latitude and longdtitude of all postcodes in csv file and write to a new csv file.
+
 Postcodes must be entered as a single column in a file saved in .csv format:
 ```
 random-postcodes.csv:
@@ -37,3 +35,5 @@ SA14,51.73245,-4.10721
 SO15,50.91629,-1.42381
 SW17,51.43030,-0.16283
 ```
+
+## postcodenearest.py
