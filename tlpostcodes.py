@@ -5,7 +5,7 @@
 import csv
 from postcodenearest import postcodenearest
 import os
-
+from at import getCentres, getPeopleWantingCourse
 from airtable import Airtable
 
 airtable = Airtable(
@@ -18,12 +18,11 @@ airtable = Airtable(
 
 
 centredict = {}
-with open("airtable/centres.csv") as centres:
-    readCSV = csv.reader(centres, delimiter=",")
-    for row in readCSV:
-        centredict[row[0]] = row[1]
-
-
+centres = getCentres()
+for centre in centres:
+    centredict[centre[0]] = centre[1]
+print(centredict)
+"""
 with open("airtable/wantingcourse.csv") as csvfile:
     readCSV = csv.reader(csvfile, delimiter=",")
     for row in readCSV:
@@ -43,3 +42,4 @@ with open("airtable/wantingcourse.csv") as csvfile:
             "thirdNearestActiveCentre": [centredict[nearest[2][1]]],
         }
         airtable.update(record["id"], fields)
+"""
