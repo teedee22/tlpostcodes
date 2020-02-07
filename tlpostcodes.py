@@ -16,7 +16,7 @@ airtable = Airtable(
 
 # people = airtable.get_all(view="Wanting a course")
 
-
+# This will be unnecessary as now centres is list of tuples, although maybe i should make them dicts
 centredict = {}
 centres = getCentres()
 for centre in centres:

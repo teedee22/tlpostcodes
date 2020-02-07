@@ -1,3 +1,7 @@
+"""
+functions handling airtable api read interaction
+"""
+
 from airtable import Airtable
 import os
 
@@ -13,25 +17,25 @@ def connectToAirtable(table, viewName):
 
 def getPeopleWantingCourse():
     people = connectToAirtable("People", "Wanting a course")
-    peoplewantingcourse = []
+    peoplewantingcourse = {}
     for person in people:
         try:
             entry = person["fields"]["Postcode extract"].strip()
             id = person["id"]
-            peoplewantingcourse.append((entry, id))
+            peoplewantingcourse[entry] = id
         except KeyError:
-            peoplewantingcourse.append(None)
+            peoplewantingcourse["error"] = "KeyError"
     return peoplewantingcourse
 
 
 def getCentres():
     centres = connectToAirtable("Centres", "Active Centres Postcodes")
-    centreslist = []
+    centreslist = {}
     for centre in centres:
         try:
             postcode = centre["fields"]["Postcode"]
             id = centre["id"]
-            centreslist.append((postcode, id))
+            centreslist[postcode] = id
         except KeyError:
-            centreslist.append(None)
+            centreslist["error"] = "keyError"
     return centreslist
