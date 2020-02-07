@@ -1,3 +1,6 @@
+"""
+Contains model for postcodes.
+"""
 import csv
 
 

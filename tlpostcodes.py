@@ -6,7 +6,6 @@ import csv
 from postcodenearest import postcodenearest
 import os
 
-
 from airtable import Airtable
 
 airtable = Airtable(
@@ -44,13 +43,3 @@ with open("airtable/wantingcourse.csv") as csvfile:
             "thirdNearestActiveCentre": [centredict[nearest[2][1]]],
         }
         airtable.update(record["id"], fields)
-
-
-"""
-        with open("nearest.csv", mode="a") as outcodes:
-            outcode_writer = csv.writer(outcodes, delimiter=",", quotechar='"')
-
-            outcode_writer.writerow(
-                [self.code, self.latitude, self.longtitude]
-            )
-"""

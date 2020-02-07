@@ -10,6 +10,19 @@ airtable = Airtable(
 
 people = airtable.get_all(view="Wanting a course")
 
+
+def peopleWantingCourse(airtableview):
+    peoplewantingcourse = []
+    for person in people:
+        try:
+            entry = person["fields"]["Postcode extract"].strip()
+            id = person["id"]
+            peoplewantingcourse.append((entry, id))
+        except KeyError:
+            peoplewantingcourse.append(None)
+    return peoplewantingcourse
+
+
 for person in people:
     try:
         entry = person["fields"]["Postcode extract"].strip()
