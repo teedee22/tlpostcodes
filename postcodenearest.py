@@ -14,17 +14,19 @@ def postcodenearest(inCode, inFileName):
             tempcode = Postcode(newrow[0])
             distances.append(
                 (
-                    geopy.distance.vincenty(
-                        (tempcode.latitude, tempcode.longtitude),
-                        (code.latitude, code.longtitude),
+                    round(
+                        geopy.distance.vincenty(
+                            (tempcode.latitude, tempcode.longtitude),
+                            (code.latitude, code.longtitude),
+                        ).miles,
+                        2,
                     ),
                     row[0],
                 )
             )
     distances.sort()
-    print(f"These are the nearest addresses to {code.code}: ")
-    for i in range(len(distances)):
-        print(f"{distances[i][1]} : {distances[i][0]}")
+
+    return (distances[0], distances[1], distances[2])
 
 
 def main():
@@ -32,7 +34,8 @@ def main():
         print(
             "use following format: postcodeslookup.py postcode searchfile.csv"
         )
-    postcodenearest(sys.argv[1], sys.argv[2])
+    print(f"These are the nearest addresses to {sys.argv[1]}: ")
+    print(postcodenearest(sys.argv[1], sys.argv[2]))
 
 
 if __name__ == "__main__":

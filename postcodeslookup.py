@@ -1,3 +1,7 @@
+"""
+Reads input file and outputs latitude longtitude to file
+postcodeslookup.py inputfile.csv outputfile.cs
+"""
 import sys
 import csv
 
