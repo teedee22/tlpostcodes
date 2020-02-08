@@ -1,4 +1,3 @@
-import sys
 import geopy.distance
 from pdc import Postcode
 
@@ -26,12 +25,7 @@ def postcodenearest(inCode, inFileName):
 
 
 def main():
-    if not len(sys.argv) == 3:
-        print(
-            "use following format: postcodeslookup.py postcode searchfile.csv"
-        )
-    print(f"These are the nearest addresses to {sys.argv[1]}: ")
-    print(postcodenearest(sys.argv[1], sys.argv[2]))
+    pass
 
 
 if __name__ == "__main__":
