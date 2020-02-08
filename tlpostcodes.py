@@ -8,20 +8,32 @@ import os
 from at import getCentres, getPeopleWantingCourse
 from airtable import Airtable
 
+"""
 airtable = Airtable(
     os.environ["AIRTABLE_BASE_KEY"],
     "People",
     api_key=os.environ["AIRTABLE_API_KEY"],
 )
-
+"""
 # people = airtable.get_all(view="Wanting a course")
 
 # This will be unnecessary as now centres is list of tuples, although maybe i should make them dicts
-centredict = {}
+
 centres = getCentres()
+pwc = getPeopleWantingCourse()
+
 for centre in centres:
-    centredict[centre[0]] = centre[1]
-print(centredict)
+    print(centre)
+
+for people in pwc:
+    print(people)
+
+
+for person in pwc:
+    person = person.split()
+    print(person[0])
+
+
 """
 with open("airtable/wantingcourse.csv") as csvfile:
     readCSV = csv.reader(csvfile, delimiter=",")

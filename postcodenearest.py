@@ -1,5 +1,4 @@
 import sys
-import csv
 import geopy.distance
 from pdc import Postcode
 
@@ -7,23 +6,20 @@ from pdc import Postcode
 def postcodenearest(inCode, inFileName):
     code = Postcode(inCode)
     distances = []
-    with open(inFileName) as csvfile:
-        readCSV = csv.reader(csvfile, delimiter=",")
-        for row in readCSV:
-            newrow = row[0].split()
-            tempcode = Postcode(newrow[0])
-            distances.append(
-                (
-                    round(
-                        geopy.distance.vincenty(
-                            (tempcode.latitude, tempcode.longtitude),
-                            (code.latitude, code.longtitude),
-                        ).miles,
-                        2,
-                    ),
-                    row[0],
-                )
+    for row in inFileName:
+        tempcode = Postcode(row)
+        distances.append(
+            (
+                round(
+                    geopy.distance.vincenty(
+                        (tempcode.latitude, tempcode.longtitude),
+                        (code.latitude, code.longtitude),
+                    ).miles,
+                    2,
+                ),
+                row,
             )
+        )
     distances.sort()
 
     return (distances[0], distances[1], distances[2])
