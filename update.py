@@ -11,9 +11,9 @@ def updateAirtable():
         api_key=os.environ["AIRTABLE_API_KEY"],
     )
     pwc = getPeopleWantingCourse()
+    centres = getCentres()
     for person in pwc:
         firstcode = person.split()
-        centres = getCentres()
         nearest = postcodenearest(firstcode[0], centres)
         fields = {
             "firstNearestActiveCentreDist": nearest[0][0],
